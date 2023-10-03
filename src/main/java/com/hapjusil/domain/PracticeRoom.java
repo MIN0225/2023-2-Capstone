@@ -26,7 +26,14 @@ public class PracticeRoom {
 
     private String location; // 합주실 위치
 
-    private LocalDate regitrationDate; // 합주실 등록일
+    @Column(nullable = false)
+    private LocalDate registrationDate = LocalDate.now(); // 합주실 등록일
+
+    private double rate; // 합주실 평점
+
+    private double latitude; // 위도
+
+    private double longitude; // 경도
 
     @OneToMany(mappedBy = "practiceRoom")
     private List<Room> rooms;

@@ -16,7 +16,9 @@ public class Reservation {
     private LocalDate reservationDate;
     private LocalDate startTime;
     private LocalDate endTime;
-    private String status;
+    @Column(name = "status", nullable = false, columnDefinition = "ENUM('PENDING', 'CONFIRMED', 'CANCELLED', 'COMPLETED', 'NO_SHOW') DEFAULT 'PENDING'")
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus status = ReservationStatus.PENDING;
 
     @ManyToOne
     @JoinColumn(name = "roomID")
