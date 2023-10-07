@@ -5,3 +5,5 @@ cloud:
     stack.auto: false
     region.static: ap-northeast-2
     credentials:
+
+      testest
