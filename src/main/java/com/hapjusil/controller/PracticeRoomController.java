@@ -25,7 +25,7 @@ public class PracticeRoomController {
         return practiceRoomService.findAvailablePracticeRooms(date);
     }
 
-    @GetMapping("/room-info")
+    @GetMapping("/room-info") // 날짜, 시작시간 입력시 합주실 조회
     public List<PracticeRoomResponseDTO> getAvailablePracticeRooms(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime startTime) {
