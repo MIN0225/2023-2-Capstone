@@ -1,1 +1,7 @@
-
+cloud:
+  aws:
+    s3:
+      bucket: hapjusil
+    stack.auto: false
+    region.static: ap-northeast-2
+    credentials:
