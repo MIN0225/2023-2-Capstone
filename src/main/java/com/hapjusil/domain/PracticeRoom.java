@@ -35,6 +35,6 @@ public class PracticeRoom {
 
     private double longitude; // 경도
 
-    @OneToMany(mappedBy = "practiceRoom")
+    @OneToMany(mappedBy = "practiceRoom", fetch = FetchType.EAGER)
     private List<Room> rooms;
 }
