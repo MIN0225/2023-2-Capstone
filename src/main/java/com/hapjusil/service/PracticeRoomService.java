@@ -1,5 +1,6 @@
 package com.hapjusil.service;
 
+import com.amazonaws.services.accessanalyzer.model.ResourceNotFoundException;
 import com.hapjusil.domain.PracticeRoom;
 import com.hapjusil.dto.PracticeRoomRequestDTO;
 import com.hapjusil.dto.PracticeRoomResponseDTO;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,4 +68,29 @@ public class PracticeRoomService {
     public List<PracticeRoom> searchPracticeRoomsByName(String name) {
         return practiceRoomRepository.findByNameContaining(name);
     }
+
+    public PracticeRoom findPracticeRoomById(long id) {
+        Optional<PracticeRoom> practiceRoom = practiceRoomRepository.findById(id);
+        return practiceRoom.orElse(null);
+    }
+
+    public PracticeRoom updatePracticeRoom(long id, PracticeRoomRequestDTO dto) {
+        PracticeRoom existingPracticeRoom = findPracticeRoomById(id);
+
+        if (existingPracticeRoom == null) {
+            throw new ResourceNotFoundException("PracticeRoom not found with id: " + id);
+        }
+
+        // Update the PracticeRoom fields with the new data from the DTO
+        existingPracticeRoom.setName(dto.getName());
+        existingPracticeRoom.setThumbnail(dto.getThumbnail());
+        existingPracticeRoom.setPhoneNumber(dto.getPhoneNumber());
+        existingPracticeRoom.setWebsite(dto.getWebsite());
+        existingPracticeRoom.setLocation(dto.getLocation());
+        existingPracticeRoom.setRate(dto.getRate());
+
+        // Save the updated PracticeRoom to the repository
+        return practiceRoomRepository.save(existingPracticeRoom);
+    }
+
 }

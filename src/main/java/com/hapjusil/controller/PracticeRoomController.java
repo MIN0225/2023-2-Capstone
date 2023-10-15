@@ -1,5 +1,6 @@
 package com.hapjusil.controller;
 
+import com.amazonaws.services.accessanalyzer.model.ResourceNotFoundException;
 import com.hapjusil.domain.PracticeRoom;
 import com.hapjusil.dto.PracticeRoomRequestDTO;
 import com.hapjusil.dto.PracticeRoomResponseDTO;
@@ -46,13 +47,21 @@ public class PracticeRoomController {
         return practiceRoomService.findPracticeRoomsByName(page, size);
     }
 
-    @PostMapping
+    @PostMapping // 합주실 등록
     public PracticeRoom addPracticeRoom(@RequestBody PracticeRoomRequestDTO dto) {
         return practiceRoomService.savePracticeRoom(dto);
     }
 
-    @GetMapping("/search")
+    @GetMapping("/search") // 합주실 이름으로 검색
     public List<PracticeRoom> searchPracticeRooms(@RequestParam String name) {
         return practiceRoomService.searchPracticeRoomsByName(name);
     }
+
+    @PutMapping("/{id}") // 합주실 ID로 수정
+    public PracticeRoom updatePracticeRoom(
+            @PathVariable("id") long id,
+            @RequestBody PracticeRoomRequestDTO dto) {
+        return practiceRoomService.updatePracticeRoom(id, dto);
+    }
+
 }
