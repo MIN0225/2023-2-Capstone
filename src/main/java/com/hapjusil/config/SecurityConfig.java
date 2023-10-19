@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers("/api/user").permitAll()
+                .antMatchers("/***").permitAll()
                 .and()
                 .oauth2Login().userInfoEndpoint().userService(customOauth2UserService);
         return http.build();
